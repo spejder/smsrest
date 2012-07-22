@@ -11,6 +11,7 @@ class HTTP
 	protected static $responses = 
 							array(
 									HTTP::NOTMODIFIED => 'HTTP/1.1 304 Not Modified',
+                                    HTTP::BADREQUEST => 'HTTP/1.1 400 Bad Request',
 									HTTP::FORBIDDEN => 'HTTP/1.1 403 Forbidden',
 									HTTP::FILENOTFOUND => 'HTTP/1.1 404 File Not Found',
 									HTTP::INTERNALSERVERERROR => 'HTTP/1.1 500 Internal Server Error'
