@@ -2,20 +2,24 @@
 
 class HTTP
 {
-	const NOTMODIFIED = 304;
-    const BADREQUEST = 400;
-	const FORBIDDEN = 403;
-	const FILENOTFOUND = 404;
-	const INTERNALSERVERERROR = 500;
+	const RESPONSE_NOTMODIFIED = 304;
+    const RESPONSE_BADREQUEST = 400;
+	const RESPONSE_FORBIDDEN = 403;
+	const RESPONSE_FILENOTFOUND = 404;
+    const RESPONSE_METHODNOTALLOWED = 405;
+	const RESPONSE_INTERNALSERVERERROR = 500;
+
+    const REQUEST_POST = 'POST';
 	
 	
 	protected static $responses = 
 							array(
-									HTTP::NOTMODIFIED => 'HTTP/1.1 304 Not Modified',
-                                    HTTP::BADREQUEST => 'HTTP/1.1 400 Bad Request',
-									HTTP::FORBIDDEN => 'HTTP/1.1 403 Forbidden',
-									HTTP::FILENOTFOUND => 'HTTP/1.1 404 File Not Found',
-									HTTP::INTERNALSERVERERROR => 'HTTP/1.1 500 Internal Server Error'
+									HTTP::RESPONSE_NOTMODIFIED => 'HTTP/1.1 304 Not Modified',
+                                    HTTP::RESPONSE_BADREQUEST => 'HTTP/1.1 400 Bad Request',
+									HTTP::RESPONSE_FORBIDDEN => 'HTTP/1.1 403 Forbidden',
+									HTTP::RESPONSE_FILENOTFOUND => 'HTTP/1.1 404 File Not Found',
+                                    HTTP::RESPONSE_METHODNOTALLOWED => 'HTTP/1.1 404 Method Not Allowed',
+									HTTP::RESPONSE_INTERNALSERVERERROR => 'HTTP/1.1 500 Internal Server Error'
 								 );
 								 
 								 

@@ -15,34 +15,39 @@ require_once 'lib/requests.php';
 require_once 'lib/securityexception.php';
 require_once 'lib/logger.php';
 
-
 try
 {
-    $audit = APIAuth::getAuditFromKey($_GET['apikey']);
+    $audit = APIAuth::getAuditFromKey($_POST['apikey']);
 
     if (!$audit)
-        throw new SecurityException('access for apikey denied');
+        throw new SecurityException('Access for apikey denied');
 
-    switch ($_GET['request']) {
+    switch ($_GET['operation']) {
         case 'sendsms':
+            if (HTTP::getRequestMethod() != HTTP::REQUEST_POST)
+                throw new HttpRequestMethodException('Operation supports POST-verb only');
+            
             $sms = new SMS();
-            $sms->to = explode(',', $_GET['to']);
+            $sms->to = explode(',', $_POST['to']);
             $sms->audit_name = $audit;
-            $sms->message = $_GET['message'];
+            $sms->message = $_POST['message'];
             echo $sms->send();
             break;
 
         default:
-            throw new InvalidArgumentException('Invalid request "'. $_GET['request']. '"');
+            throw new InvalidArgumentException('Invalid request "'. $_GET['operation']. '"');
     }
 
 } catch (InvalidArgumentException $e) {
-    HTTP::respond(HTTP::BADREQUEST);
+    HTTP::respond(HTTP::RESPONSE_BADREQUEST);
+    echo $e->getMessage();
+} catch (HttpRequestMethodException $e) {
+    HTTP::respond(HTTP::RESPONSE_METHODNOTALLOWED);
     echo $e->getMessage();
 } catch (SecurityException $e) {
-    HTTP::respond(HTTP::FORBIDDEN);
+    HTTP::respond(HTTP::RESPONSE_FORBIDDEN);
     echo $e->getMessage();
 } catch (Exception $e) {
-    HTTP::respond(HTTP::INTERNALSERVERERROR);
+    HTTP::respond(HTTP::RESPONSE_INTERNALSERVERERROR);
     echo $e->getMessage();
 }
