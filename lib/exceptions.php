@@ -8,3 +8,7 @@
 class SecurityException extends Exception
 {
 }
+
+class HttpMethodException extends Exception
+{
+}

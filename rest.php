@@ -12,7 +12,7 @@ require_once 'smsrest.prereqs.php';
 require_once 'lib/http.php';
 require_once 'lib/apiauth.php';
 require_once 'lib/requests.php';
-require_once 'lib/securityexception.php';
+require_once 'lib/exceptions.php';
 require_once 'lib/logger.php';
 
 try
@@ -25,7 +25,7 @@ try
     switch ($_GET['operation']) {
         case 'sendsms':
             if (HTTP::getRequestMethod() != HTTP::REQUEST_POST)
-                throw new HttpRequestMethodException('Operation supports POST-verb only');
+                throw new HttpMethodException('Operation supports POST-verb only');
             
             $sms = new SMS();
             $sms->to = explode(',', $_POST['to']);
@@ -41,7 +41,7 @@ try
 } catch (InvalidArgumentException $e) {
     HTTP::respond(HTTP::RESPONSE_BADREQUEST);
     echo $e->getMessage();
-} catch (HttpRequestMethodException $e) {
+} catch (HttpMethodException $e) {
     HTTP::respond(HTTP::RESPONSE_METHODNOTALLOWED);
     echo $e->getMessage();
 } catch (SecurityException $e) {
