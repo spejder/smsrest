@@ -51,3 +51,5 @@ try
     HTTP::respond(HTTP::RESPONSE_INTERNALSERVERERROR);
     echo $e->getMessage();
 }
+
+echo "\r\n";
