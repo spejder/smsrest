@@ -18,7 +18,7 @@ class HTTP
                                     HTTP::RESPONSE_BADREQUEST => 'HTTP/1.1 400 Bad Request',
 									HTTP::RESPONSE_FORBIDDEN => 'HTTP/1.1 403 Forbidden',
 									HTTP::RESPONSE_FILENOTFOUND => 'HTTP/1.1 404 File Not Found',
-                                    HTTP::RESPONSE_METHODNOTALLOWED => 'HTTP/1.1 404 Method Not Allowed',
+                                    HTTP::RESPONSE_METHODNOTALLOWED => 'HTTP/1.1 405 Method Not Allowed',
 									HTTP::RESPONSE_INTERNALSERVERERROR => 'HTTP/1.1 500 Internal Server Error'
 								 );
 								 
