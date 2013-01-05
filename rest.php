@@ -28,7 +28,8 @@ try
                 throw new HttpMethodException('Operation supports POST-verb only');
             
             $sms = new SMS();
-            $sms->to = explode(',', $_POST['to']);
+            $sms->from = $_POST['from'];
+            $sms->to = is_array($_POST['to']) ? $_POST['to'] : explode(',', $_POST['to']);
             $sms->audit_name = $audit;
             $sms->message = $_POST['message'];
             echo $sms->send();
