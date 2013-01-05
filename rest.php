@@ -17,7 +17,7 @@ require_once 'lib/logger.php';
 
 try
 {
-    $audit = APIAuth::getAuditFromKey($_POST['apikey']);
+    $audit = APIAuth::getAuditFromKey($_REQUEST['apikey']);
 
     if (!$audit)
         throw new SecurityException('Access for apikey denied');
