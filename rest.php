@@ -12,17 +12,24 @@ require_once 'smsrest.prereqs.php';
 require_once 'lib/http.php';
 require_once 'lib/apiauth.php';
 require_once 'lib/requests.php';
+require_once 'lib/securityexception.php';
+require_once 'lib/logger.php';
+
 
 try
 {
-    $audit = APIAuth::getAuditFromKey($_POST['apikey']);
+    $audit = APIAuth::getAuditFromKey($_GET['apikey']);
 
     if (!$audit)
         throw new SecurityException('access for apikey denied');
 
     switch ($_GET['request']) {
         case 'sendsms':
-            sendsms($_POST['from'], $_POST['to'], $_POST['message'], $audit);
+            $sms = new SMS();
+            $sms->addRecipient($_GET['to']);
+            $sms->audit_name = $audit;
+            $sms->message = $_GET['message'];
+            echo $sms->send();
             break;
 
         default:
