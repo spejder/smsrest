@@ -26,7 +26,7 @@ try
     switch ($_GET['request']) {
         case 'sendsms':
             $sms = new SMS();
-            $sms->addRecipient($_GET['to']);
+            $sms->to = explode(',', $_GET['to']);
             $sms->audit_name = $audit;
             $sms->message = $_GET['message'];
             echo $sms->send();
